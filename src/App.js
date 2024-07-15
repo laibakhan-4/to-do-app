@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>My Todos</h1>
+      <h1>My ToDo List</h1>
 
       <div className='todo-wrapper'>
         <div className='todo-input'>
@@ -48,7 +48,7 @@ function App() {
             type="text" 
             value={newTitle}
             onChange={(e)=>setNewTitle(e.target.value)}
-            placeholder="What's the task Title"/>
+            placeholder="Write the Task Title..."/>
           </div>
           <div className='todo-input-item'>
             <label>Description</label>
@@ -56,7 +56,7 @@ function App() {
             type="text" 
             value={newDescription}
             onChange={(e)=>setNewDescription(e.target.value)}
-            placeholder="What's the task Description"/>
+            placeholder="Write the Task Description..."/>
           </div>
           <div className='todo-input-item'>
             <button 
