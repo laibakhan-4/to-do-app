@@ -1,11 +1,13 @@
 body{
-  background-color: #1f1e1e;
+  background-color: rgb(100, 249, 179);
   color:white;
   overflow: hidden;
 }
 
+
 h1{
   text-align: center;
+  color: black;
 }
 
 .todo-wrapper{
