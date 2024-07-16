@@ -2,28 +2,19 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import {AiOutlineDelete, AiOutlineEdit} from 'react-icons/ai';
 import { BsCheckLg } from "react-icons/bs";
+import TodoInput from './components/TodoInput';
 
 function App() {
   const [isCompleteScreen,setIsCompleteScreen] = useState(false);
   const [allTodos,setTodos] = useState(() => {
     return JSON.parse(localStorage.getItem ('todolist')) || [];
   });
-  const [newTitle,setNewTitle] = useState("");
-  const [newDescription,setNewDescription] = useState("");
+
   const [completedTodos,setCompletedTodos] = useState([]);
   const [currentEdit,setCurrentEdit] = useState("");
   const [currentEditedItem,setCurrentEditedItem] = useState("");
 
-  const handleAddTodo = ()=>{
-    let newTodoItem = {
-      title: newTitle,
-      description: newDescription,
-    }; 
-    let updatedTodoArr=[...allTodos];
-    updatedTodoArr.push (newTodoItem); 
-    setTodos (updatedTodoArr);
-    localStorage.setItem ('todolist', JSON.stringify (updatedTodoArr));
-  };
+
 
   const handleDeleteTodo = (index)=>{
     let reducedTodo = [...allTodos];
@@ -33,22 +24,15 @@ function App() {
   };
 
   const handleComplete = (index)=>{
-    Intl.DateTimeFormat(
 
-    ) 
     let now = new Date();
-    let dow = now.getDay();
-    let dd = now.getDate();
-    let mm = now.getMonth()+1;
-    let yyyy = now.getFullYear();
-    let h = now.getHours();
-    let m = now.getMinutes();
-    let s = now.getSeconds();
+    let completedOn = new Intl.DateTimeFormat('en-US', {
+      weekday: 'long',      hour: '2-digit', minute: '2-digit',
+      //year: 'numeric',
+      //month: '2-digit',
+      //day: '2-digit',
 
-    let dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    let dName = dayNames[dow];
-
-    let completedOn =dName + ', ' + dd + '-' + mm + '-' + yyyy + ' at ' + h + ':' + m + ':' + s;
+    }).format(now);
 
     let filteredItem = {
       ...allTodos[index],
@@ -113,31 +97,11 @@ function App() {
 
       <div className='todo-wrapper'>
       
-        <div className='todo-input'>
-          <div className='todo-input-item'>
-            <label>Title</label>
-            <input 
-            type="text" 
-            value={newTitle}
-            onChange={(e)=>setNewTitle(e.target.value)}
-            placeholder="Write the Task Title..."/>
-          </div>
-          <div className='todo-input-item'>
-            <label>Description</label>
-            <input 
-            type="text" 
-            value={newDescription}
-            onChange={(e)=>setNewDescription(e.target.value)}
-            placeholder="Write the Task Description..."/>
-          </div>
-          <div className='todo-input-item'>
-            <button 
-            type='button' 
-            onClick={handleAddTodo}
-            className='primaryBtn'>Add</button>
-          </div>
-        </div>
-
+      <TodoInput
+        allTodos={allTodos}
+        setTodos={setTodos}
+      />
+      
         <div className='btn-area'>
           <button
             className={`secondaryBtn ${isCompleteScreen === false && 'active'}`}
